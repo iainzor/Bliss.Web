@@ -1,0 +1,39 @@
+#menu {
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 250px;
+	background-color: #fff;
+	transition: transform .3s ease-in-out;
+	z-index: 1000;
+}
+
+#menu:not(.open) {	
+	transform: translateX(-100%);
+}
+
+	#menu > ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+		#menu > ul > li {
+			border-bottom: 1px solid rgba(0,0,0,.05);
+			margin: 0;
+		}
+			#menu > ul > li > a {
+				display: block;
+				padding: 15px 20px;
+				text-decoration: none;
+				color: #333;
+			}
+			#menu > ul > li > a:hover {
+				
+			}
+			
+@media (min-width: 1480px) {
+	#menu:not(.open) {
+		transform: translateX(0);
+	}
+}
