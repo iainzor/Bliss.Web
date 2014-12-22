@@ -8,7 +8,7 @@
 	color: #fff;
 	padding: 10px;
 	z-index: 800;
-	transition: padding .3s ease-in-out;
+	transition: all .3s ease-in-out;
 }
 	#header a { text-decoration: none; color: #fff; }
 	
