@@ -55,7 +55,7 @@ class Module extends AbstractModule implements DecoratorProvider, InjectorInterf
 	{
 		return new \Config\Config([
 			"theme" => [
-				"className" => "theme-bluegray"
+				"className" => "theme-business-casual"
 			]
 		]);
 	}
