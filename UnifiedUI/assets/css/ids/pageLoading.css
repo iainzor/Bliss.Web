@@ -1,0 +1,28 @@
+#pageLoading {
+	position: fixed;
+	top: 20%;
+	left: 50%;
+	width: 80px;
+	margin-left: -40px;
+	margin-top: -40px;
+	z-index: 1000;
+	border-radius: 40px;
+	transition: all .2s ease-in-out;
+}
+#pageLoading:not(.visible) {
+	visibility: hidden;
+	transform: scale(0,0);
+}
+	#pageLoading > .section {
+		height: 80px;
+		position: relative;
+	}
+		#pageLoading > .section > paper-spinner {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin: -14px 0 0 -14px;
+		}
+		#pageLoading paper-spinner::shadow .circle {
+			border-color: #666;
+		}

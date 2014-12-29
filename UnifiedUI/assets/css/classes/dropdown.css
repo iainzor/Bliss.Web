@@ -1,0 +1,34 @@
+.dropdown > .arrow {
+	opacity: .5;
+	color: #fff;
+	transition: opacity .1s ease-in-out;
+}
+.dropdown.open > .arrow,
+.dropdown:hover > .arrow {
+	opacity: 1;
+}
+
+.dropdown.right-justified {
+	padding-right: 10px;
+}
+.dropdown.left-justified {
+	padding-left: 10px;
+}
+
+.dropdown a:hover {
+	text-decoration: none;
+}
+
+.dropdown > .dropdown-menu {
+	overflow: hidden;
+	transform: scale(0,0);
+	transform-origin: top left;
+	transition: all .1s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+}
+.dropdown:hover > .dropdown-menu {
+	transform: scale(1,1);
+	opacity: 1;
+	visibility: visible;
+}

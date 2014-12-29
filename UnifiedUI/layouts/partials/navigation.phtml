@@ -1,5 +1,24 @@
+<?php
+/*
 <ul class="nav nav-stacked">
-	<li ng-repeat="page in app.pages">
+	<li ng-repeat="page in app.pages" ng-class="{'dropdown top-left':page.pages.length}">
 		<a href="./{{page.path}}">{{page.title}}</a>
+		<ul class="dropdown-menu shadow" ng-if="page.pages.length">
+			<li ng-repeat="child in page.pages">
+				<a href="./{{child.path}}">{{child.title}}</a>
+			</li>
+		</ul>
+	</li>
+</ul>
+*/
+?>
+<ul class="nav nav-stacked" ng-controller="unifiedUI.NavigationCtrl">
+	<li ng-repeat="page in pages" ng-class="{active:page.active}">
+		<a href="./{{page.path}}" ng-click="intercept($event, page)">{{page.title}}</a>
+		<ul ng-if="page.pages.length">
+			<li ng-repeat="child in page.pages" ng-class="{active:child.active}">
+				<a href="./{{child.path}}">{{child.title}}</a>
+			</li>
+		</ul>
 	</li>
 </ul>
