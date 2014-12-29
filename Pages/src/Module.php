@@ -7,35 +7,52 @@ use Bliss\Module\AbstractModule,
 
 class Module extends AbstractModule implements PublicConfigInterface
 {
-	public function publicConfig() {
-		return new Config([
-			[
-				"title" => "Home",
-				"path" => "",
-			], [
-				"title" => "Documentation",
-				"path" => "docs"
-			], [
-				"title" => "People",
-				"path" => "people",
-				"pages" => [
-					[
-						"title" => "My Friends",
-						"path" => "people/friends"
-					], [
-						"match" => "^/person/(.*)$",
-						"pages" => [
-							[
-								"title" => "{{person.displayName}}",
-								"path" => "./{{person.path}}"
-							], [
-								"title" => "Activity Feed",
-								"path" => "./{{person.path}}/feed"
-							]
-						]
-					]
-				]
-			]
-		]);
+	/**
+	 * @var \Pages\Container
+	 */
+	private $root;
+	
+	/**
+	 * @var boolean
+	 */
+	private $compiled = false;
+	
+	public function pages()
+	{
+		if (!$this->compiled) {
+			$this->compiled = true;
+			$this->root = $this->compile();
+		}
+		
+		return $this->root;
+	}
+	
+	/**
+	 * Generate a public configuration object for all
+	 * registered pages
+	 * 
+	 * @return Config
+	 */
+	public function publicConfig() 
+	{
+		return new Config(
+			$this->pages()->toArray()
+		);
+	}
+	
+	/**
+	 * Compile pages from all registered modules
+	 * 
+	 * @return \Pages\Container
+	 */
+	private function compile()
+	{
+		$container = new Container();
+		foreach ($this->app->modules() as $module) {
+			if ($module instanceof ProviderInterface) {
+				$module->initPages($container);
+			}
+		}
+		return $container;
 	}
 }
