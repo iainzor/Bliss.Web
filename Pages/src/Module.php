@@ -31,13 +31,11 @@ class Module extends AbstractModule implements PublicConfigInterface
 	 * Generate a public configuration object for all
 	 * registered pages
 	 * 
-	 * @return Config
+	 * @param \Config\Config
 	 */
-	public function publicConfig() 
+	public function populatePublicConfig(Config $config) 
 	{
-		return new Config(
-			$this->pages()->toArray()
-		);
+		$config->setData($this->pages()->toArray());
 	}
 	
 	/**
