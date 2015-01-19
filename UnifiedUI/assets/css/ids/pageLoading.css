@@ -1,6 +1,7 @@
-#pageLoading {
+#pageLoading {}
+#pageLoading .indicator {
 	position: fixed;
-	top: 20%;
+	top: 50%;
 	left: 50%;
 	width: 80px;
 	margin-left: -40px;
@@ -9,20 +10,20 @@
 	border-radius: 40px;
 	transition: all .2s ease-in-out;
 }
-#pageLoading:not(.visible) {
+#pageLoading:not(.visible) .indicator {
 	visibility: hidden;
 	transform: scale(0,0);
 }
-	#pageLoading > .section {
+	#pageLoading .indicator > .section {
 		height: 80px;
 		position: relative;
 	}
-		#pageLoading > .section > paper-spinner {
+		#pageLoading .indicator > .section > paper-spinner {
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			margin: -14px 0 0 -14px;
 		}
-		#pageLoading paper-spinner::shadow .circle {
+		#pageLoading .indicator paper-spinner::shadow .circle {
 			border-color: #666;
 		}

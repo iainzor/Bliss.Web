@@ -13,5 +13,5 @@
 #menuOverlay.visible { visibility: visible; opacity: 1; }
 
 @media (min-width: 1480px) {
-	#menuOverlay { display: none; }
+	html:not(.thin) #menuOverlay { display: none; }
 }

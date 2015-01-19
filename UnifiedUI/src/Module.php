@@ -8,11 +8,9 @@ use Bliss\Module\AbstractModule,
 	View\Partial\InjectableTrait,
 	View\Partial\InjectorInterface,
 	View\Partial\InjectableInterface,
-	Router\ProviderInterface as RouteProvider,
-	Config\PublicConfigInterface,
-	Config\Config;
+	Router\ProviderInterface as RouteProvider;
 
-class Module extends AbstractModule implements DecoratorProvider, InjectorInterface, InjectableInterface, RouteProvider, PublicConfigInterface
+class Module extends AbstractModule implements DecoratorProvider, InjectorInterface, InjectableInterface, RouteProvider
 {
 	use InjectableTrait;
 	
@@ -49,15 +47,6 @@ class Module extends AbstractModule implements DecoratorProvider, InjectorInterf
 			"module" => $this->name(),
 			"controller" => "view",
 			"action" => "render"
-		]);
-	}
-	
-	public function populatePublicConfig(Config $config) 
-	{
-		$config->setData([
-			"theme" => [
-				"className" => "theme-business-casual"
-			]
 		]);
 	}
 }

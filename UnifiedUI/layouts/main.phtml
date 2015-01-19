@@ -15,7 +15,7 @@ $router = $this->app->router();
 $exception = $this->get("exception");
 ?>
 <!DOCTYPE html>
-<html ng-app="bliss" ng-controller="bliss.AppCtrl" class="{{app.unifiedui.theme.className}}">
+<html ng-app="bliss" ng-controller="bliss.AppCtrl" class="{{layout.mode}}">
 	<head>
 		<base href="<?=BASE_URL?>">
 		<meta charset="utf-8">
@@ -37,22 +37,24 @@ $exception = $this->get("exception");
 	</head>
 	<body ng-controller="unifiedUI.LayoutCtrl" ng-class="{ready:app.ready}">
 		<header id="header" class="shadow">
-			<paper-icon-button icon="menu" class="menuToggle" ng-click="toggleMenu()" ng-class="{active:menuOpen}"></paper-icon-button>
-			
-			<aside class="widgets">
-				<?=$ui->renderInjectables(UI::AREA_HEADER_WIDGETS)?>
-			</aside>
-			
-			<h1 class="brand" title="{{app.name}}">
-				<a href="./" ng-bind="app.name"></a>
-			</h1>
-			<h4 class="page-title" ng-if="page">{{page.title}}</h4>
+			<div class="container">
+				<paper-icon-button icon="menu" class="menuToggle" ng-click="toggleMenu()" ng-class="{active:menuOpen, disabled:!layout.menu.enabled}"></paper-icon-button>
+
+				<aside class="widgets">
+					<?=$ui->renderInjectables(UI::AREA_HEADER_WIDGETS)?>
+				</aside>
+
+				<h1 class="brand" title="{{app.name}}">
+					<a href="./" ng-bind="app.name"></a>
+				</h1>
+				<h4 class="page-title" ng-if="page">{{page.title}}</h4>
+			</div>
 		</header>
 		
-		<nav id="menu" class="shadow z2" ng-class="{open:menuOpen}">
+		<nav id="menu" class="shadow z2" ng-class="{open:menuOpen, disabled:!layout.menu.enabled}">
 			<?=$ui->renderInjectables(UI::AREA_MENU)?>
 		</nav>
-		<div id="menuOverlay" ng-click="toggleMenu()" ng-class="{visible:menuOpen}"></div>
+		<div id="menuOverlay" ng-click="toggleMenu()" ng-class="{visible:menuOpen}" ng-if="layout.menu.enabled"></div>
 		
 		<div id="pageError" class="alert alert-danger shadow" ng-class="{visible:pageError}">
 			<paper-icon-button icon="close" ng-click="clearPageError()"></paper-icon-button>
@@ -63,14 +65,18 @@ $exception = $this->get("exception");
 		</div>
 		
 <?php if (!$exception): ?>
-		<div id="pageLoading" class="block shadow z2" ng-class="{'visible':app.loading}">
-			<section class="section body">
-				<paper-spinner active></paper-spinner>
-			</section>
+		<div id="pageLoading" ng-class="{'visible':app.loading}">
+			<article class="block shadow z2 indicator">
+				<section class="section body">
+					<paper-spinner active></paper-spinner>
+				</section>
+			</article>
 		</div>
 		
 		<div id="content">
-			<div ng-view></div>
+			<div class="container">
+				<div ng-view></div>
+			</div>
 		</div>
 <?php else: ?>
 		<article class="block shadow">

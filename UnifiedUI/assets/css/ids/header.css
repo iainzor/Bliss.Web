@@ -6,7 +6,7 @@
 	height: 60px;
 	background-color: #333;
 	color: #fff;
-	padding: 10px 10px 10px 60px;
+	padding: 10px 0;
 	z-index: 800;
 	transition: all .3s ease-in-out;
 	transition-delay: .1s;
@@ -17,8 +17,10 @@ body.ready #header {
 }
 	#header a { text-decoration: none; color: #fff; }
 	
-	#header > * { display: inline-block; margin: 0 10px; }
-	#header > .brand { 
+	#header .container {}
+		#header .container > * { display: inline-block; margin: 0 10px; }
+	
+	#header .brand { 
 		float: left;
 		position: relative; 
 		z-index: 1; 
@@ -29,7 +31,7 @@ body.ready #header {
 	}
 		#header > .brand > a { display: block; }
 	
-	#header > .page-title { 
+	#header .page-title { 
 		float: left;
 		margin-top: 10px;
 		padding-left: 10px;
@@ -40,23 +42,32 @@ body.ready #header {
 		font-size: 18px; 
 	}
 		
-	#header > .menuToggle { 
-		position: absolute;
-		top: 10px;
-		left: 10px;
+	#header .menuToggle { 
+		float: left;
 		margin-left: 0; 
 		transition: all .3s ease-in-out;
 	}
+	#header .menuToggle.disabled {
+		opacity: 0;
+		transform: scale(0);
+		margin-left: -50px;
+	}
 	
-	#header > .widgets {
+	#header .widgets {
 		float: right;
 	}
 	
+
+html.thin body.ready #header .container { padding-left: 20px; }
+
+	
 @media (min-width: 1480px) {
-	#header {
-		padding: 10px 20px 10px 280px;
+	#header .container {
+		padding-left: 235px;
 	}
-		#header > .menuToggle {
+	html.thin #header .container { padding-left: 20px; }
+		
+		html:not(.thin) #header .menuToggle {
 			visibility: hidden;
 			opacity: 0;
 			z-index: -1;
