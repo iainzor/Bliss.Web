@@ -9,7 +9,7 @@ bliss.controller("unifiedUI.NavigationCtrl", ["$rootScope", "$scope", "$location
 		
 	$scope.intercepted = false;
 	$scope.intercept = function($event, page) {
-		if (page.pages.length > 0 && !page.active) {
+		if (page.pages && page.pages.length > 0 && !page.active) {
 			//$event.preventDefault();
 			
 			Page.reset($scope.pages);
