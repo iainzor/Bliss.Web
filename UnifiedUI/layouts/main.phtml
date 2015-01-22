@@ -17,7 +17,7 @@ $exception = $this->get("exception");
 <!DOCTYPE html>
 <html ng-app="bliss" ng-controller="bliss.AppCtrl" class="{{layout.mode}}">
 	<head>
-		<base href="<?=BASE_URL?>">
+		<base href="<?=$request->baseUrl()?>">
 		<meta charset="utf-8">
 		<meta name="fragment" content="!">
 		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
