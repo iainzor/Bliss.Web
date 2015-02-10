@@ -1,17 +1,13 @@
-bliss.controller("unifiedUI.LayoutCtrl", ["$rootScope", "bliss.App", "pages.Page", "unifiedUI.Layout", function($scope, App, Page, Layout) {
+bliss.controller("unifiedUI.LayoutCtrl", ["$rootScope", "bliss.App", "pages.Page", "unifiedUI.Layout", "unifiedUI.Navigation", function($scope, App, Page, Layout, Nav) {
 	var preventMenuClose = false;
+	
+	angular.element(document.body).on("context", function(e) {
+		console.log(e);
+	});
 	
 	$scope.menuOpen = false;
 	$scope.page = null;
 	$scope.layout = Layout;
-	
-	$scope.pageTitle = function() {
-		if ($scope.page) {
-			return $scope.page.title +" - "+ $scope.app.name;
-		} else {
-			return $scope.app.name;
-		}
-	};
 	
 	$scope.toggleMenu = function() {
 		$scope.menuOpen = !$scope.menuOpen;
@@ -24,17 +20,13 @@ bliss.controller("unifiedUI.LayoutCtrl", ["$rootScope", "bliss.App", "pages.Page
 	$scope.$watch(function() { return App.config().unifiedui; }, function(config) {
 		$scope.layout.setConfig(config);
 	});
-	$scope.$on("$locationChangeStart", function() {
-		$scope.page = null;
+	$scope.$watch(function() { return Nav.page(); }, function(page) {
+		$scope.page = page;
 	});
 	$scope.$on("$routeChangeSuccess", function() {
 		$scope.menuOpen = preventMenuClose === true ? $scope.menuOpen : false;
 		$scope.layout.reset();
 		
 		preventMenuClose = false;
-	});
-	$scope.$on(Page.EVENT_ACTIVATED, function(e, page) {
-		$scope.page = page;
-		$scope.app.title = page.title +" - "+ $scope.app.name;
 	});
 }]);

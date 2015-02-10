@@ -8,6 +8,11 @@ class Page extends Component implements PageInterface
 	/**
 	 * @var string
 	 */
+	protected $id;
+	
+	/**
+	 * @var string
+	 */
 	protected $path;
 	
 	/**
@@ -16,16 +21,41 @@ class Page extends Component implements PageInterface
 	protected $title;
 	
 	/**
+	 * @var boolean
+	 */
+	protected $visible = true;
+	
+	/**
 	 * @var \Pages\Container
 	 */
 	protected $pages;
+	
+	/**
+	 * @var array
+	 */
+	protected $resources = [];
 	
 	/**
 	 * Constructor
 	 */
 	public function __construct() 
 	{
+		$this->id = substr(md5(uniqid()), 0, 10);
 		$this->pages = new Container();
+	}
+	
+	/**
+	 * Get or set the page's ID
+	 * 
+	 * @param string $id
+	 * @return string
+	 */
+	public function id($id = null)
+	{
+		if ($id !== null) {
+			$this->id = $id;
+		}
+		return $this->id;
 	}
 	
 	/**
@@ -57,6 +87,17 @@ class Page extends Component implements PageInterface
 	}
 	
 	/**
+	 * @param boolean $visible
+	 * @return boolean
+	 */
+	public function visible($visible = null) {
+		if ($visible !== null) {
+			$this->visible = (boolean) $visible;
+		}
+		return $this->visible;
+	}
+	
+	/**
 	 * Get or set the child pages of this page
 	 * 
 	 * @param array $pages
@@ -79,6 +120,20 @@ class Page extends Component implements PageInterface
 			}
 		}
 		return $this->pages;
+	}
+	
+	/**
+	 * Get or set the resources for the page
+	 * 
+	 * @param array $resources
+	 * @return array
+	 */
+	public function resources(array $resources = null)
+	{
+		if ($resources !== null) {
+			$this->resources = $resources;
+		}
+		return $this->resources;
 	}
 
 }

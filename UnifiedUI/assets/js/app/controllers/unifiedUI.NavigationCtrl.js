@@ -1,17 +1,16 @@
-bliss.controller("unifiedUI.NavigationCtrl", ["$rootScope", "$scope", "$location", "pages.Page", function($root, $scope, $location, Page) {
-	var activate = function(pages, path) {
-		var found = Page.activate(pages, path);
+bliss.controller("unifiedUI.NavigationCtrl", ["$scope", "$location", "bliss.App", "pages.Page", "unifiedUI.Navigation", function($scope, $location, App, Page, Nav) {
+	var activate = function(path) {
+		Nav.reset();
 		
+		var found = Nav.find(path);
 		if (found) {
-			$scope.$emit(Page.EVENT_ACTIVATED, found);
+			Nav.page(found);
 		}
 	};
 		
 	$scope.intercepted = false;
 	$scope.intercept = function($event, page) {
 		if (page.pages && page.pages.length > 0 && !page.active) {
-			//$event.preventDefault();
-			
 			Page.reset($scope.pages);
 			page.active = true;
 			$scope.intercepted = true;
@@ -19,20 +18,21 @@ bliss.controller("unifiedUI.NavigationCtrl", ["$rootScope", "$scope", "$location
 		}
 	};
 	
-	$scope.pages = $root.app ? $root.app.pages : [];
-	$root.$watch("app", function(app) {
+	$scope.pages = [];
+	$scope.$watch(function() { return App.config(); }, function(app) {
 		if (!app || !app.ready) { return; }
 		
 		if ($scope.intercepted) {
 			$scope.intercepted = false;
 		} else {
 			$scope.pages = app.pages;
-			activate(app.pages, $location.path());
+			
+			Nav.pages(app.pages);
 		}
 	}, true);
 	
 	$scope.$on("$locationChangeStart", function() {
-		activate($scope.pages, $location.path());
+		activate($location.path());
 	});
 	$scope.$on("$routeChangeSuccess", function(e) {
 		if ($scope.intercepted) {

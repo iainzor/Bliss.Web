@@ -40,7 +40,22 @@ body.ready #header {
 		line-height: 25px; 
 		font-weight: 300; 
 		font-size: 18px; 
+		transition: padding .3s ease-in-out;
 	}
+	#header .page-title.dropdown { padding-left: 15px; }
+	
+		#header .page-title > .dropdown-menu a { color: #000; }
+		#header .page-title > .arrow {
+			border-width: 6px;
+			margin-left: 5px;
+			visibility: hidden;
+		}
+		#header .page-title.dropdown > .arrow {
+			visibility: visible;
+		}
+		#header .page-title > .dropdown-menu {
+			margin-left: 5px;
+		}
 		
 	#header .menuToggle { 
 		float: left;
@@ -59,7 +74,6 @@ body.ready #header {
 	
 
 html.thin body.ready #header .container { padding-left: 20px; }
-
 	
 @media (min-width: 1480px) {
 	#header .container {

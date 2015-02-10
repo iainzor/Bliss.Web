@@ -47,7 +47,15 @@ $exception = $this->get("exception");
 				<h1 class="brand" title="{{app.name}}">
 					<a href="./" ng-bind="app.name"></a>
 				</h1>
-				<h4 class="page-title" ng-if="page">{{page.title}}</h4>
+				<h4 class="page-title" ng-class="{dropdown:page.pages.length}" ng-if="page" dropdown>
+					<a href="./{{page.path}}" ng-bind="page.title"></a>
+					<i class="arrow bottom left north"></i>
+					<ul class="dropdown-menu shadow pull-left" ng-if="page.pages.length">
+						<li ng-repeat="p in page.pages" ng-class="{active:p.active}">
+							<a href="./{{p.path}}">{{p.title}}</a>
+						</li>
+					</ul>
+				</h4>
 			</div>
 		</header>
 		
@@ -75,7 +83,23 @@ $exception = $this->get("exception");
 		
 		<div id="content">
 			<div class="container">
-				<div ng-view></div>
+				<div class="row">
+					<div ng-if="resource" class="col-sm-3">
+						<article class="block shadow">
+							<header class="section header" ng-if="resource.label">
+								<h4>{{resource.label}}</h4>
+							</header>
+							<ul class="section nav nav-stacked">
+								<li ng-repeat="child in resource.pages">
+									<a href="./{{child.path}}">{{child.title}}</a>
+								</li>
+							</ul>
+						</article>
+					</div>
+					<div ng-class="{'col-sm-9':resource,'col-sm-12':!resource}">
+						<div ng-view></div>
+					</div>
+				</div>
 			</div>
 		</div>
 <?php else: ?>

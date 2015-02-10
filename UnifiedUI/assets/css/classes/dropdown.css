@@ -1,10 +1,10 @@
 .dropdown > .arrow {
 	opacity: .5;
-	color: #fff;
+	border-color: #fff;
 	transition: opacity .1s ease-in-out;
+	z-index: 1001;
 }
-.dropdown.open > .arrow,
-.dropdown:hover > .arrow {
+.dropdown.open > .arrow {
 	opacity: 1;
 }
 
@@ -27,7 +27,10 @@
 	opacity: 0;
 	visibility: hidden;
 }
-.dropdown:hover > .dropdown-menu {
+.dropdown > .dropdown-menu.pull-right {
+	transform-origin: top right;
+}
+.dropdown.open > .dropdown-menu {
 	transform: scale(1,1);
 	opacity: 1;
 	visibility: visible;
